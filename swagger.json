@@ -90,8 +90,11 @@
       "post": {
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -99,6 +102,16 @@
             "BearerAuth": []
           }
         ]
+      }
+    },
+    "/api/message/sendMessage": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     }
   },

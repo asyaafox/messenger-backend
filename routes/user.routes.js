@@ -37,7 +37,7 @@ router.post("/signup", async (req, res) => {
     return res.status(201).json({
       id: user.dataValues.id,
       username: user.dataValues.username,
-      fullName: fullName,
+      fullName: user.dataValues.fullName,
     });
   } catch (error) {
     console.error("Error in signup controller", error);
@@ -78,8 +78,19 @@ router.post("/login", async (req, res) => {
 
 router.post("/me", authenticateToken, async (req, res) => {
   // #swagger.security = [{"BearerAuth": []}]
-
-  return res.send("mememe");
+  try {
+    const userId = req.user.userId;
+    console.log(req);
+    const user = await User.findOne({ where: { id: userId } });
+    return res.status(201).json({
+      id: user.dataValues.id,
+      username: user.dataValues.username,
+      fullName: user.dataValues.fullName,
+    });
+  } catch (error) {
+    console.error("Error in mememe", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default router;
