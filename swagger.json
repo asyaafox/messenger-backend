@@ -131,6 +131,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "406": {
+            "description": "Not Acceptable"
+          },
           "500": {
             "description": "Internal Server Error"
           }

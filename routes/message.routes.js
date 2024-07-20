@@ -6,6 +6,7 @@ import User from "../models/user.model.js";
 import authenticateToken from "../middlewares/auth.js";
 const router = Router();
 import { literal } from "sequelize";
+import Op from "sequelize";
 // router.post("/sendMessage", async (req, res) => {
 //   // {recipient_id, recipient_type, text} = req.body;
 //   res.send("Pososi");
@@ -16,39 +17,36 @@ router.post("/send", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { receiverId, text } = req.body;
+    if (receiverId == userId) {
+      return res.status(406).send({ error: "Receiver id cannot be your id" });
+    }
     const receiver = await User.findOne({ where: { id: receiverId } });
     if (!receiver) {
       return res.status(400).json({ error: "No receiver with this id" });
     }
-    // Find a chat that includes both the sender and the receiver
     let chat = await Chat.findOne({
       include: [
         {
-          model: Members,
-          as: "members",
-          where: {
-            [Op.or]: [{ UserId: userId }, { UserId: receiverId }],
-          },
+          model: User,
+          through: { model: Members, where: { UserId: [userId, receiverId] } },
+          required: true,
         },
       ],
       group: ["Chat.id"],
-      having: sequelize.literal("COUNT(DISTINCT members.UserId) = 2"),
     });
+    console.log(chat);
     if (!chat) {
-      chat = await Chat.create({ chatName: "New chaaat" });
+      chat = await Chat.create();
       await Members.bulkCreate([
         { UserId: userId, ChatId: chat.id },
         { UserId: receiverId, ChatId: chat.id },
       ]);
     }
     const message = await Message.create({
-      content: messageContent,
+      Text: text,
       ChatId: chat.id,
       UserId: userId,
     });
-
-    return res.json({ chat, message });
-
     return res.status(200).json("Sent successfully");
   } catch (error) {
     console.error("Error in send message route", error);

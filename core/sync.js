@@ -4,14 +4,13 @@ import Message from "../models/message.model.js";
 import Chat from "../models/chat.model.js";
 import Members from "../models/member.model.js";
 
-User.hasMany(Members, { foreignKey: "UserId" });
-Chat.hasMany(Members, { foreignKey: "ChatId" });
-Members.belongsTo(User, { foreignKey: "UserId" });
-Members.belongsTo(Chat, { foreignKey: "ChatId" });
+User.hasMany(Message, { foreignKey: "UserId" });
+Message.belongsTo(User, { foreignKey: "UserId" });
 
 Chat.hasMany(Message, { foreignKey: "ChatId" });
-User.hasMany(Message, { foreignKey: "UserId" });
 Message.belongsTo(Chat, { foreignKey: "ChatId" });
-Message.belongsTo(User, { foreignKey: "UserId" });
+
+User.belongsToMany(Chat, { through: Members, foreignKey: "UserId" });
+Chat.belongsToMany(User, { through: Members, foreignKey: "ChatId" });
 
 await sequelize.sync({ force: true });

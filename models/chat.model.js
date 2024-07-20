@@ -9,7 +9,6 @@ Chat.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    Chatname: { type: DataTypes.STRING, allowNull: false },
   },
   { sequelize, timestamps: true }
 );
