@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --env-file=.env --config nodemon.json --experimental-json-modules swagger.js",
-    "run": "node --env-file=.env --config nodemon.json --experimental-json-modules swagger.js"
+    "dev": "nodemon  --config nodemon.json --experimental-json-modules swagger.js",
+    "run": "node  --config nodemon.json --experimental-json-modules swagger.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "sqlite3": "^5.1.7",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"

@@ -1,5 +1,5 @@
 import { getPasswordHash } from "../core/security.js";
-import User from "../models/model.user.js";
+import User from "../models/user.model.js";
 
 export const login = async (req, res) => {
   try {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import User from "../models/model.user.js";
+import User from "../models/user.model.js";
 import { getPasswordHash, generateToken } from "../core/security.js";
 import bcrypt from "bcrypt";
 import authenticateToken from "../middlewares/auth.js";

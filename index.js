@@ -1,14 +1,14 @@
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-
+// import bodyParser from "body-parser";
+// import cookieParser from "cookie-parser";
+import dotenv from 'dotenv';
 
 import api from "./core/api.js";
 import "./core/sync.js";
 
-
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
