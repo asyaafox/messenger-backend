@@ -13,7 +13,7 @@ User.init(
     fullName: { type: DataTypes.STRING, allowNull: false },
     hashedPassword: { type: DataTypes.STRING, allowNull: false },
   },
-  { sequelize, timestamps: true }
+  { sequelize, modelName: "User", timestamps: true }
 );
 
 export default User;
