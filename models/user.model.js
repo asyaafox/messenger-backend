@@ -1,8 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../core/database.js";
 
-class User extends Model {}
-User.init(
+const User = sequelize.define(
+  "User",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,7 +13,11 @@ User.init(
     fullName: { type: DataTypes.STRING, allowNull: false },
     hashedPassword: { type: DataTypes.STRING, allowNull: false },
   },
-  { sequelize, modelName: "User", timestamps: true }
+  {
+    modelName: "User",
+    timestamps: true,
+    freezeTableName: true,
+  }
 );
 
 export default User;
